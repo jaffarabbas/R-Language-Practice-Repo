@@ -1,6 +1,18 @@
-library(RODBC)
+library(odbc)
+library(DBI)
+library(ggplot2)
 
-# dbconnection <- odbcDriverConnect(connection="Driver=ODBC Driver 11 for SQL Server;Server=YourDBName\\SQLEXPRESS; Database=Scott;Uid=; Pwd=; trusted_connection=yes")
-dbconnection <- odbcConnect("UAT")
-data <- sqlFetch(dbconnection, "EMPLOYEE", colnames = TRUE , rownames = TRUE)
 
+# Check what odbc drivers are installed and available
+unique(odbcListDrivers()[[1]])
+
+con <- odbc::dbConnect(odbc(), Driver = "SQL Server", 
+                       Server = "DESKTOP-FFPMVV9\\DARKLORD", 
+                       Database = "Scott", 
+                       uid = "jaffar", 
+                       pwd="jaffar")
+
+d <- DBI::dbGetQuery(con,"Select * from EMPLOYEE")
+df <- DBI::dbReadTable(con, 'EMPLOYEE')
+
+print(d)
