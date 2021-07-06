@@ -16,9 +16,8 @@ for(i in x){
 
 p = 0
 while(p<=10){
-    if(p%%2){
-        next   
+    if(p%%2 != 0){
+          print(p)
     }
-    p=p+1
-    print(p)
+    p = p+1
 }
